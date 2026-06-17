@@ -1,0 +1,9 @@
+.conditional-node__right-label {
+  position: absolute;
+  left: calc(100% + 10px);
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: hsl(var(--foreground));
+  font-family: inherit;
+  pointer-events: none;
+}

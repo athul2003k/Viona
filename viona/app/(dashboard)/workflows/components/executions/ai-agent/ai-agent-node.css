@@ -1,0 +1,141 @@
+/* ───────────────────────────────────────────────
+   AI Agent Node — Premium Custom Styling
+   Scoped via .ai-agent-node to avoid leaking
+   ─────────────────────────────────────────────── */
+
+.ai-agent-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border-radius: 8px;
+  background: hsl(var(--card));
+  border: 1.5px solid hsl(var(--border));
+  cursor: pointer;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ai-agent-node:hover {
+  border-color: hsl(var(--primary) / 0.5);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.ai-agent-node:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* ── Body container ── */
+.ai-agent-node__body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+}
+
+/* ── Icon & Title ── */
+.ai-agent-node__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: hsl(var(--primary));
+}
+
+.ai-agent-node__icon-wrapper > svg {
+  color: hsl(var(--primary-foreground));
+  width: 20px;
+  height: 20px;
+}
+
+.ai-agent-node__title-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.ai-agent-node__title {
+  font-size: 15px;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  line-height: 1.2;
+}
+
+.ai-agent-node__desc {
+  font-size: 12px;
+  color: hsl(var(--muted-foreground));
+  line-height: 1.4;
+}
+
+/* ── Bottom Handles ── */
+.ai-agent-node__diamond-handle {
+  width: 14px !important;
+  height: 14px !important;
+  background: hsl(var(--muted-foreground)) !important;
+  border: none !important;
+  border-radius: 2px !important;
+  transform: translate(-50%, 50%) rotate(45deg) !important;
+  bottom: 0 !important;
+}
+
+.ai-agent-node__handle-label {
+  position: absolute;
+  top: calc(100% + 14px);
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── Main flow handles ── */
+.ai-agent-node__left-handle {
+  width: 14px !important;
+  height: 14px !important;
+  border-radius: 2px !important;
+  background: hsl(var(--muted-foreground)) !important;
+  border: none !important;
+  left: -7px !important;
+  /* Reset rotation if any */
+  transform: translate(0, -50%) !important;
+}
+
+/* Make it point inward like an arrow block */
+.ai-agent-node__left-handle::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 6px solid hsl(var(--muted-foreground));
+}
+
+.ai-agent-node__right-handle {
+  width: 12px !important;
+  height: 12px !important;
+  border-radius: 50% !important; /* Circle */
+  background: hsl(var(--muted-foreground)) !important;
+  border: none !important;
+  right: -6px !important;
+}
+
+/* ── Status states ── */
+.ai-agent-node[data-status="loading"] {
+  border-color: hsl(215, 80%, 55%);
+}
+
+.ai-agent-node[data-status="success"] {
+  border-color: hsl(152, 60%, 45%);
+}
+
+.ai-agent-node[data-status="error"] {
+  border-color: hsl(0, 70%, 55%);
+}

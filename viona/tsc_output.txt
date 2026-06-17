@@ -1,0 +1,59 @@
+.next/dev/types/validator.ts(234,31): error TS2344: Type 'typeof import("/home/arch/Desktop/projects/Viona-Pro-v2/viona/app/api/orders/[orderId]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/orders/[orderId]">'.
+  Types of property 'GET' are incompatible.
+    Type '(request: NextRequest, { params }: { params: { orderId: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; orderDate: string; status: string; totalAmount: number; ... 9 more ...; financialBreakdown: { ...; }; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ orderId: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ orderId: string; }>; }' is not assignable to type '{ params: { orderId: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'orderId' is missing in type 'Promise<{ orderId: string; }>' but required in type '{ orderId: string; }'.
+.next/dev/types/validator.ts(252,31): error TS2344: Type 'typeof import("/home/arch/Desktop/projects/Viona-Pro-v2/viona/app/api/warehouses/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/warehouses/[id]">'.
+  Types of property 'GET' are incompatible.
+    Type '(request: NextRequest, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<WarehouseDetail>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+.next/types/validator.ts(234,31): error TS2344: Type 'typeof import("/home/arch/Desktop/projects/Viona-Pro-v2/viona/app/api/orders/[orderId]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/orders/[orderId]">'.
+  Types of property 'GET' are incompatible.
+    Type '(request: NextRequest, { params }: { params: { orderId: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; orderDate: string; status: string; totalAmount: number; ... 9 more ...; financialBreakdown: { ...; }; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ orderId: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ orderId: string; }>; }' is not assignable to type '{ params: { orderId: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'orderId' is missing in type 'Promise<{ orderId: string; }>' but required in type '{ orderId: string; }'.
+.next/types/validator.ts(252,31): error TS2344: Type 'typeof import("/home/arch/Desktop/projects/Viona-Pro-v2/viona/app/api/warehouses/[id]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/warehouses/[id]">'.
+  Types of property 'GET' are incompatible.
+    Type '(request: NextRequest, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<WarehouseDetail>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+      Types of parameters '__1' and 'context' are incompatible.
+        Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+          Types of property 'params' are incompatible.
+            Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+app/inventory/actions.ts(253,5): error TS2554: Expected 2 arguments, but got 1.
+app/inventory/actions.ts(254,17): error TS2554: Expected 2 arguments, but got 1.
+app/inventory/actions.ts(685,13): error TS2322: Type 'string | null' is not assignable to type 'string'.
+  Type 'null' is not assignable to type 'string'.
+app/inventory/actions.ts(686,13): error TS2322: Type 'string | null' is not assignable to type 'string'.
+  Type 'null' is not assignable to type 'string'.
+app/inventory/actions.ts(1123,25): error TS18047: 'fromStock.quantity' is possibly 'null'.
+app/inventory/actions.ts(1129,27): error TS18047: 'fromStock.quantity' is possibly 'null'.
+app/inventory/actions.ts(1139,29): error TS18047: 'toStock.quantity' is possibly 'null'.
+app/inventory/components/ProductPriceChart.tsx(456,85): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: Props): ReferenceLine', gave the following error.
+    Type '"topRight"' is not assignable to type 'LabelPosition | undefined'.
+  Overload 2 of 2, '(props: Props, context: any): ReferenceLine', gave the following error.
+    Type '"topRight"' is not assignable to type 'LabelPosition | undefined'.
+app/organization/actions.ts(66,3): error TS2554: Expected 2 arguments, but got 1.
+app/organization/actions.ts(67,3): error TS2554: Expected 2 arguments, but got 1.
+app/organization/actions.ts(168,3): error TS2554: Expected 2 arguments, but got 1.
+app/organization/actions.ts(205,3): error TS2554: Expected 2 arguments, but got 1.
+app/warehouse/actions.ts(10,3): error TS2554: Expected 2 arguments, but got 1.
+app/warehouse/actions.ts(11,3): error TS2554: Expected 2 arguments, but got 1.
+app/workflows/[workflowId]/canvas.tsx(98,11): error TS2322: Type '{ id: string; type: WorkflowNodeType; position: { x: number; y: number; } | undefined; data: { node: WorkflowNode<WorkflowNodeType>; }; }[]' is not assignable to type 'Node[]'.
+  Type '{ id: string; type: WorkflowNodeType; position: { x: number; y: number; } | undefined; data: { node: WorkflowNode<WorkflowNodeType>; }; }' is not assignable to type 'Node'.
+    Types of property 'position' are incompatible.
+      Type '{ x: number; y: number; } | undefined' is not assignable to type 'XYPosition'.
+        Type 'undefined' is not assignable to type 'XYPosition'.
+app/workflows/[workflowId]/page.tsx(273,26): error TS2741: Property 'selectedNode' is missing in type '{ definition: WorkflowDefinition; readOnly: boolean; onSelectNode: Dispatch<SetStateAction<WorkflowNode | null>>; ... 4 more ...; onDeleteEdges: (edgeIds: string[]) => void; }' but required in type 'Props'.
+components/ui/sidebar.tsx(8,29): error TS2307: Cannot find module '@/hooks/use-mobile' or its corresponding type declarations.
+lib/auth.ts(94,5): error TS2554: Expected 2 arguments, but got 1.
+lib/auth.ts(119,3): error TS2554: Expected 2 arguments, but got 1.
+lib/auth.ts(212,3): error TS2554: Expected 2 arguments, but got 1.
+lib/auth.ts(216,3): error TS2554: Expected 2 arguments, but got 1.

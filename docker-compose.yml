@@ -1,0 +1,124 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 20s
+
+  redis:
+    image: redis:7.0.11
+    container_name: redis
+    ports:
+      - "6379:6379"
+
+  mongodb:
+    image: mongo:6
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  notification-server:
+    build: ./notification-server
+    container_name: notification-server
+    restart: always
+    environment:
+      MONGO_URL: mongodb://root:password@mongodb:27017/notification?authSource=admin
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+    ports:
+      - "5002:5001"
+
+  frontend:
+    build:
+      context: ./viona
+      args:
+        NEXT_PUBLIC_NOTIFICATION_SERVER_URL: http://localhost:5002
+        NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+        NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+        NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+        NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+        NEXT_PUBLIC_STORAGE_SERVER_URL: http://localhost:5003
+    container_name: viona-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+      CLERK_SECRET_KEY: ${CLERK_SECRET_KEY}
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: redis://redis:6379
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      STRIPE_STARTER_PRICE_ID: ${STRIPE_STARTER_PRICE_ID}
+      STRIPE_PRO_PRICE_ID: ${STRIPE_PRO_PRICE_ID}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      notification-server:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  ai-agent-server:
+    build: ./ai-agent-server
+    container_name: ai-agent-server
+    restart: always
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./ai-agent-server/.env
+    environment:
+      CLERK_JWKS_URL: https://climbing-raven-91.clerk.accounts.dev/.well-known/jwks.json
+      REDIS_URL: redis://redis:6379
+      MONGO_URL: mongodb://root:password@mongodb:27017
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      mongodb:
+        condition: service_healthy
+
+  storage-server:
+    build: ./storage-server
+    container_name: storage-server
+    restart: always
+    ports:
+      - "5003:3001"
+    environment:
+      MONGODB_URI: ${MONGODB_URI}
+      CLERK_SECRET_KEY: ${CLERK_SECRET_KEY}
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: ${NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING}
+      AZURE_STORAGE_CONTAINER_NAME: ${AZURE_STORAGE_CONTAINER_NAME}
+
+volumes:
+  mongodb_data:
